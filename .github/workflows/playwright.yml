@@ -8,6 +8,10 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      baseurl: ${{ secrets.BASEURL }}
+      useremail: ${{ secrets.USEREMAIL }}
+      password: ${{ secrets.PASSWORD }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -17,8 +21,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests naukricheck.spec.js
-      run: npx playwright test
+    - name: Run Naukri Playwright test
+      run: npx playwright test tests/naukricheck.spec.js
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

@@ -41,7 +41,9 @@ export default defineConfig({
     {
       name: process.env.browserName || 'chromium',
       use: { ...devices['Desktop Chrome'],
-        headless: process.env.headless?.toLowerCase() === 'true',
+        headless: process.env.CI
+          ? true
+          : process.env.headless?.toLowerCase() === 'true',
       },
     },
 
