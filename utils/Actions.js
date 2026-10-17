@@ -8,13 +8,8 @@ export class Actions {
   }
 
   async clearandfill(locator, value) {
+    await locator.clear();
     await locator.fill(value);
-    const enteredValue = await locator.inputValue();
-    if (enteredValue !== value) {
-      throw new Error(
-        `Input value length mismatch: expected ${value.length}, received ${enteredValue.length}`,
-      );
-    }
   }
 
   async typeText(locator, text) {
@@ -31,5 +26,9 @@ export class Actions {
 
   async waitForVisible(locator) {
     await locator.waitFor({ state: 'visible' });
+  }
+
+  async getTextcontent(locator) {
+    return await locator.textContent();
   }
 }

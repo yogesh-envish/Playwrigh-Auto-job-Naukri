@@ -104,6 +104,10 @@ playwright.config.ts Playwright and environment configuration
 
 The workflow in `.github/workflows/playwright.yml` can be started manually with `workflow_dispatch`. Configure the repository secrets `BASEURL`, `USEREMAIL`, and `PASSWORD` before running it. The workflow installs dependencies and browsers, runs `tests/naukricheck.spec.js`, and uploads the Playwright HTML report.
 
+## Harness CI
+
+The pipeline in `.harness/profile-headline-ci.yaml` runs `tests/Autoupdate.spec.js`. Before importing or running it in Harness, replace `YOUR_ORG_ID`, `YOUR_PROJECT_ID`, `YOUR_DOCKERHUB_CONNECTOR_ID`, and `YOUR_KUBERNETES_CONNECTOR_ID` with your Harness identifiers. Create Harness secrets named `BASEURL`, `USEREMAIL`, and `PASSWORD` for the corresponding Naukri login values. The pipeline expects Harness Kubernetes CI infrastructure and a Docker connector that can pull `node:22-bookworm`.
+
 ## Responsible use
 
 This project currently automates login and job search only. It does not submit applications. Any future application-submission automation should be tested carefully and used in accordance with Naukri's terms and the account owner's intent. Review each job and application before submitting.

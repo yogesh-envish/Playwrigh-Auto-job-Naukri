@@ -1,0 +1,44 @@
+pipeline:
+  name: Playwright Profile Headline Test
+  identifier: playwright_profile_headline_test
+  projectIdentifier: YOUR_PROJECT_ID
+  orgIdentifier: YOUR_ORG_ID
+  stages:
+    - stage:
+        name: Run Profile Headline Test
+        identifier: run_profile_headline_test
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run Playwright Test
+                  identifier: run_playwright_test
+                  spec:
+                    connectorRef: YOUR_DOCKERHUB_CONNECTOR_ID
+                    image: node:22-bookworm
+                    shell: Bash
+                    command: |-
+                      npm ci
+                      npx playwright install --with-deps chromium
+                      npx playwright test tests/Autoupdate.spec.js
+                    envVariables:
+                      baseurl: <+secrets.getValue("BASEURL")>
+                      useremail: <+secrets.getValue("USEREMAIL")>
+                      password: <+secrets.getValue("PASSWORD")>
+                      CI: "true"
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: YOUR_KUBERNETES_CONNECTOR_ID
+              namespace: default
+              automountServiceAccountToken: true
+              os: Linux
+              resources:
+                requests:
+                  cpu: "1"
+                  memory: 2Gi
+                limits:
+                  memory: 4Gi
