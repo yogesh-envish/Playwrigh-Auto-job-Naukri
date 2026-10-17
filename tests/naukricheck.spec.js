@@ -10,7 +10,7 @@ test.describe('Naukri login', () => {
     });
     await test.step('Enter credentials and login', async () => {
       await loginPage.login();
-      await loginPage.isProfileIconVisible();
+      
     });
     await test.step('Search for jobs and apply filters', async () => {
       await searchJobPage.searchJobs(jobDetails.jobTitle);
@@ -18,6 +18,7 @@ test.describe('Naukri login', () => {
       //await searchJobPage.filterByPostedDate(jobDetails.postedDate);
     });
     await test.step('Logout', async () => {
+      await loginPage.isProfileIconVisibleandClick();
       await loginPage.logout();
     });
   });

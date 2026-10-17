@@ -29,12 +29,12 @@ export class LoginPage {
         await this.actions.click(this.loginButton);
     }
 
-    async isProfileIconVisible() {
+    async isProfileIconVisibleandClick() {
         await this.actions.waitForVisible(this.profileIcon);
+        await this.actions.click(this.profileIcon);
     }
 
     async logout() {
-        await this.actions.click(this.profileIcon);
         await this.actions.click(this.logoutButton);
     }
 }
